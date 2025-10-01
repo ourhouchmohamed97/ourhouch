@@ -64,7 +64,7 @@ export default function GitHubBanner() {
     }, isDeleting ? 50 : 100);
 
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, textIndex, texts]);
+  }, [charIndex, isDeleting, textIndex]);
 
   return (
     <div className="banner">

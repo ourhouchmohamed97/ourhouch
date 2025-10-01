@@ -1,28 +1,30 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function GitHubBanner() {
   // Load Google Fonts
   useEffect(() => {
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap';
-    link.rel = 'stylesheet';
+    const link = document.createElement("link");
+    link.href =
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap";
+    link.rel = "stylesheet";
     document.head.appendChild(link);
   }, []);
+
   const [particles, setParticles] = useState([]);
-  const [typingText, setTypingText] = useState('');
+  const [typingText, setTypingText] = useState("");
   const [textIndex, setTextIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const texts = [
-    'Building amazing things with code 💻',
-    'Think. Code. fix. Repeat 🚀',
-    'Always learning, always growing 🌱'
+    "Building amazing things with code 💻",
+    "Think. Code. fix. Repeat 🚀",
+    "Always learning, always growing 🌱",
   ];
 
-  // Generate particles on mount
+  // Generate particles
   useEffect(() => {
     const newParticles = [];
     for (let i = 0; i < 50; i++) {
@@ -39,9 +41,8 @@ export default function GitHubBanner() {
 
   // Typing effect
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const handleTyping = () => {
       const currentText = texts[textIndex];
-      
       if (isDeleting) {
         setTypingText(currentText.substring(0, charIndex - 1));
         setCharIndex(charIndex - 1);
@@ -50,21 +51,21 @@ export default function GitHubBanner() {
         setCharIndex(charIndex + 1);
       }
 
-      let typeSpeed = isDeleting ? 50 : 100;
-
       if (!isDeleting && charIndex === currentText.length) {
         setTimeout(() => setIsDeleting(true), 2000);
-        return;
       } else if (isDeleting && charIndex === 0) {
         setIsDeleting(false);
-        setTextIndex((textIndex + 1) % texts.length);
-        setTimeout(() => {}, 500);
-        return;
+        setTextIndex((prev) => (prev + 1) % texts.length);
       }
-    }, isDeleting ? 50 : 100);
+    };
+
+    const timeout = setTimeout(
+      handleTyping,
+      isDeleting ? 50 : 100
+    );
 
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, textIndex]);
+  }, [charIndex, isDeleting, textIndex, texts]);
 
   return (
     <div className="banner">
@@ -78,18 +79,18 @@ export default function GitHubBanner() {
               height: `${particle.size}px`,
               left: `${particle.left}%`,
               animationDelay: `${particle.delay}s`,
-              animationDuration: `${particle.duration}s`
+              animationDuration: `${particle.duration}s`,
             }}
           />
         ))}
       </div>
-      
+
       <div className="content">
-        <div className="greeting">Hi there👋🏻, I'm</div>
+        <div className="greeting">Hi there👋🏻, I&apos;m</div>
         <div className="name">mohamed ourhouch</div>
         <div className="title">software developer</div>
         <div className="typing-effect">{typingText}</div>
-        
+
         <div className="social-links">
           <a href="https://github.com/ourhouchmohamed97" target="_blank" rel="noopener noreferrer">
             <div className="social-link">
@@ -114,7 +115,6 @@ export default function GitHubBanner() {
           </a>
         </div>
       </div>
-
       <style jsx>{`
         .banner {
           width: 100vw;

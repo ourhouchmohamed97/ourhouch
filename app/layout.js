@@ -15,7 +15,7 @@ export const metadata = {
   title: "Mohamed Ourhouch | Software Developer",
   description: "Personal portfolio of Mohamed Ourhouch — Software Developer & Open Source Enthusiast.",
   icons: {
-    icon: "/favicon.ico", // you can use "/icon.png" or "/icon.svg" too
+    icon: "/favicon.ico",
   },
 };
 
